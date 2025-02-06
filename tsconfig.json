@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2017", // for padStart
+    "outDir": "www",
+    // "outFile": "./www/show.js",
+    "removeComments": true,
+    "esModuleInterop": false,
+    "strict": true,
+  }
+}
