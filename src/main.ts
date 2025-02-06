@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import Speakers from './speakers.js';
-const filepicker: HTMLInputElement = document.getElementById("filepicker") as HTMLInputElement
+const filepicker = document.getElementById("filepicker") as HTMLInputElement
 const renderarea = document.getElementById("renderarea") as HTMLDivElement
 const speakerstable = document.getElementById("speakerstable") as HTMLTableSectionElement
 
@@ -13,7 +13,6 @@ speakers.onchange = () => {
 filepicker.addEventListener("change", (ev) => {
     if (filepicker.files == null) return
     for (const file of filepicker.files) {
-        console.log(file)
         speakers.add(file)
     }
 })

@@ -38,7 +38,6 @@ export default class Speakers {
 
         for (const speaker of this.speakers) {
             let row = table.insertRow();
-            console.log(row)
 
             let nameInput = document.createElement("textarea")
             nameInput.rows = 1;
