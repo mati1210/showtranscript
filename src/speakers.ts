@@ -1,15 +1,20 @@
 // SPDX-License-Identifier: MPL-2.0
 
-interface Segment {
+export interface Segment {
     start: number,
     end: number,
     text: string
 }
-interface Speaker {
+export interface Speaker {
     name: string
     color: string
     segments: Segment[]
 }
+
+export type Conversation = {
+    speaker: Speaker,
+    segment: Segment
+}[]
 
 export default class Speakers {
     speakers: Speaker[] = []
@@ -31,6 +36,17 @@ export default class Speakers {
             finally { this.onchange() }
         }
         reader.readAsText(file)
+    }
+
+    get conversation(): Conversation {
+        const segments = []
+        for (const speaker of this.speakers) {
+            for (const segment of speaker.segments) {
+                segments.push({ segment, speaker })
+            }
+        }
+        segments.sort((a, b) => a.segment.start - b.segment.start)
+        return segments
     }
 
     render(table: HTMLTableSectionElement) {
