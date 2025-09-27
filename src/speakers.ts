@@ -21,13 +21,12 @@ export default class Speakers {
     onchange: () => void = () => { }
 
     add(file: File) {
-        const name = file.name.endsWith(".json") ? file.name.slice(0, -5) : file.name
+        const fileName = file.name.endsWith(".json") ? file.name.slice(0, -5) : file.name
         const reader = new FileReader()
 
         reader.onload = ev => {
             try {
-                const data = JSON.parse(ev.target!.result!.toString())
-                this.speakers.push({ name, segments: data["segments"], color: "white" })
+                parseJSON(fileName, ev.target!.result!.toString()).forEach(v => this.speakers.push(v));
             } catch (error) {
                 console.error(error)
                 alert("failed to parse file!")
@@ -85,4 +84,19 @@ export default class Speakers {
         }
 
     }
+}
+
+function parseJSON(fileName: string, json: string): Speaker[] {
+    var data = JSON.parse(json)
+
+    if (Array.isArray(data)) {
+        const speakers = []
+        for (const speaker of data) {
+            speakers.push({ name: speaker["name"], segments: speaker["segments"], color: speaker["color"] ?? "white" })
+        }
+        return speakers
+    } else {
+        return [{ name: fileName, segments: data["segments"], color: "white" }]
+    }
+    throw new Error()
 }
