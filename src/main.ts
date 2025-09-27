@@ -18,3 +18,12 @@ filepicker.addEventListener("change", (ev) => {
         speakers.add(file)
     }
 })
+
+const reload = document.getElementById("reload") as HTMLButtonElement
+const clear = document.getElementById("clear") as HTMLButtonElement
+reload.onclick = speakers.onchange
+
+clear.onclick = () => {
+    speakers.speakers = []
+    speakers.onchange()
+}
